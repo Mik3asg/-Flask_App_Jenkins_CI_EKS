@@ -59,7 +59,7 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 
 
 2. **Configure your Jenkins Server in UI:**
-    - Install the required Plugins: `Manage Jenkins > Plugins > Available Plugins`. Select (Docker, Docker Pipeline, GitHub integration)
+    - Install the necessary plugins by navigating to ``Manage Jenkins > Plugins > Available Plugins``. Choose `Docker`, `Docker Pipeline` and `GitHub integration`
     - Restart Jenkins server
     - Configure Credentials: `Manage Jenkins > Credentials > Global > Add Credentials`
         - for GitHub (`id=github, username=your_username, password=token_generated_in_GitHub`)
