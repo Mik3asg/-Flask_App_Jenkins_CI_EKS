@@ -70,7 +70,7 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
                 - Build Triggers=`GitHub hook trigger for GITScm polling`
                 - Navigate to the GitHub repository settings and enable the Webhook by following these steps:
                     - `Settings > Webhook > Payload URL = http://jenkins_server_public_ip:8080/github-weebhook/`)
-                 - `Content type=application/json`. 
+                    - `Content type=application/json`. 
                  - Confirm Add webhook
                 - Pipeline Definition=`Pipeline script from SCM`
                     - SCM=`GIT`
@@ -107,11 +107,13 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 
             - Retrieve Password for UI access 
     - In UI:
-        - Define a Project Name
-        - Select Cluster=`https://kubernetes.default.svc`
-        - Define Namespace=`default`
+        - Application Name=`flask-gitops-demo`
+        - Project Name=`Default`
+        - SYNC POLICY=`Automatic`
         - REPO URL: `<Github_repo_hosting_CD_Pipeline>`
         - Path:``./`` 
+        - Cluster URL=`https://kubernetes.default.svc`
+        - Namespace=`default`
 
 5. **Commit a new code change and test app deployment**
     - Check status in Jenkins UI of both Jobs: ```BuildAppJob``` for CI Pipeline and ```UpdateK8sManifestJob``` for CD Pipeline
