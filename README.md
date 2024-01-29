@@ -123,7 +123,7 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
     ![Argo CD](https://i.imgur.com/l1MlaPK.png)
 
 
-    - Retrieve load balancer endpoint by running ``kubectl get svc``, then paste into web browser to access the application
+    - Retrieve load balancer endpoint by running ``kubectl get svc``, then paste into web browser to access the web application
 
 ## Clean-up
 Delete AWS EKS Cluster
