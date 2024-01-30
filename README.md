@@ -3,15 +3,16 @@
 ## Overview
 This project showcases an end-to-end DevOps pipeline for deploying a basic Flask application using Jenkins Pipeline and GitOps (with ArgoCD) on an Amazon Elastic Kubernetes Service (EKS) cluster. It utilizes two Git repositories:
 
-[GitHub Repository for Continous Integration hosting our basic Flask application code](https://github.com/Mik3asg/Flask_App_Jenkins_CI_EKS.git)  
-[GitHub Repository for GitOps and Update of K8s Manifest](https://github.com/Mik3asg/Flask_App_Jenkins_GitOps_EKS.git)
+[GitHub Repository for Continous Integration hosting our basic Flask application code](https://github.com/Mik3asg/Flask-App-Jenkins-CI-EKS.git)  
+[GitHub Repository for GitOps and Update of K8s Manifest](https://github.com/Mik3asg/Flask-App-Jenkins-GitOps-EKS.git)
 
 
 
 ## Pre-requisites/Assumptions:
 - AWS Account created
-- AWS CLI installed
-- kubectl installed
+- AWS CLI installed on local machine
+- IAM user set up with AWS access key ID and AWS secret access key
+- kubectl installed on local machine
 - DockerHub Account created
 - Application code hosted on GIT Repository
 
@@ -26,7 +27,10 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
         - Storage: `15 GiB gp2`
         - SG Inbound rules: `TCP/22, TCP/8080`
     - SSH into your EC2 instance to install Jenkins and Docker packages. 
-    - Leverage `user-data` section within EC2 to include the following bash script for installing Java, Jenkins and Docker packages:
+    - Use the `user-data` section within the EC2 Console to incorporate the following bash script for installing Java, Jenkins, and Docker packages:
+        
+        - **Warning:** Java 11 support in Jenkins ends after Sep 30, 2024. Installing an unsupported Java version may cause Jenkins to fail. Upgrade Java to a newer version. Refer to the [documentation](https://www.jenkins.io/doc/book/platform-information/support-policy-java/) for details.
+
 
         ```bash
         #!/bin/bash
@@ -51,6 +55,9 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
         sudo systemctl enable docker
         sudo systemctl restart docker
         ```
+
+
+
 
     - Check status of dependencies by running the following commands:
         - ```java -version```
@@ -89,14 +96,20 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
                     - Credentials=``none`` # public repo
                     - Branch Specifier=`*/main`
 
-3. **Provision an AWS EKS Cluster**
+3. **Provision an AWS EKS Cluster via AWS CLI**
+
+    - Access your AWS Account via `aws configure` in the Terminal of your local machine 
+    - Provide the credentials of your IAM user (access key ID and secret key) and region               
+      > **Note:** For consistency, use the same region in which you have created your previous EC2 instance for Jenkins server, i.e. us-east-1
+    - Create an AWS EKS Cluster
     ```bash
-    eksctl create cluster --name <demo-eks> --region us-east-1 --nodegroup-name <my-nodes> --node-type t3.small --managed --nodes 2 # <demo-eks> and <my-nodes> define your own values
+    eksctl create cluster --name <flask-eks> --region us-east-1 --nodegroup-name <my-nodes> --node-type t3.small --managed --nodes 2 # Replace <flask-eks> and <my-nodes> with your desired values
     ```
-    Check the status of EKS Cluster (if up and running)
+    - Check the status of EKS Cluster (if up and running)
     ```bash
     eksctl get cluster --name demo-eks --region us-east-1  
     ```
+    - Run `kubectl get nodes` command to verify the status of the nodes
 
 4. **Installation and Configuration Argo CD**
     - Via CLI:
@@ -125,10 +138,10 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 
     - Retrieve load balancer endpoint by running ``kubectl get svc``, then paste into web browser to access the web application
 
-## Clean-up
+## Clean-up resources
 Delete AWS EKS Cluster
 ```bash
-eksctl delete cluster --name demo-eks --region us-east-1
+eksctl delete cluster --name flask-eks --region us-east-1  #Replace <flask-eks> with the value you defined for your cluster
 ```
 `Terminate` the running EC2 instance for Jenkins server in AWS Console Management
 
