@@ -59,7 +59,7 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 
 
 
-    - Check status of dependencies by running the following commands:
+    - SSH into your Jenkins EC2 instance and check status of packages by running the following commands:
         - ```java -version```
         - ```sudo systemctl status jenkins```
         - ```sudo systemctl status docker ```
