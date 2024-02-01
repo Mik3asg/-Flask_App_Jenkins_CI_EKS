@@ -3,8 +3,8 @@
 ## Overview
 This project showcases an end-to-end DevOps pipeline for deploying a basic Flask application using Jenkins Pipeline and GitOps (with ArgoCD) on an Amazon Elastic Kubernetes Service (EKS) cluster. It utilizes two Git repositories:
 
-[GitHub Repository for Continous Integration hosting our basic Flask application code](https://github.com/Mik3asg/Flask-App-Jenkins-CI-EKS.git)  
-[GitHub Repository for GitOps and Update of K8s Manifest](https://github.com/Mik3asg/Flask-App-Jenkins-GitOps-EKS.git)
+- [GitHub Repository for Continous Integration hosting our basic Flask application code](https://github.com/Mik3asg/Flask-App-Jenkins-CI-EKS.git)  
+- [GitHub Repository for GitOps and Update of K8s Manifest](https://github.com/Mik3asg/Flask-App-Jenkins-GitOps-EKS.git)
 
 
 
@@ -17,6 +17,8 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 - Application code hosted on GIT Repository
 
 ## Architecture/Design Overview
+
+HLD: Work in progress
 
 ## Installation and Setup
 
