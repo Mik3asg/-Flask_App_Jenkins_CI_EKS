@@ -18,8 +18,7 @@ This project showcases an end-to-end DevOps pipeline for deploying a basic Flask
 
 ## Architecture/Design Overview
 
-HLD: Work in progress
-
+ ![HLD](images/Flask_App_Jenkins_CICD_HLD.png)
 ## Installation and Setup
 
 1. **Spin up an AWS EC2 instance for a Jenkins server:**
